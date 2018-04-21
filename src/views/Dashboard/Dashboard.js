@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Bar, Line } from 'react-chartjs-2';
+import { Bar, Line, Pie } from 'react-chartjs-2';
 import {
   Badge,
   Button,
@@ -10,6 +10,7 @@ import {
   CardBody,
   CardFooter,
   CardHeader,
+  CardColumns,
   CardTitle,
   Col,
   Dropdown,
@@ -356,17 +357,25 @@ var elements = 27;
 var data1 = [];
 var data2 = [];
 var data3 = [];
+var nonSubsData = [30, 50, 20, 25, 15, 18, 33];
+var subsData = [67, 69, 55, 50, 70, 71, 60];
+var totalData = [];
+var nonSubsPredData = [30, 50, 20, 25, 15, 18, 33, 48, 50, 33, 35, 27, 30, 33];
+var subsPredData = [67, 69, 55, 50, 70, 71, 60, 58, 57, 60, 63, 65, 69, 70];
+var totalPredData = [];
+
 
 for (var i = 0; i <= elements; i++) {
-  data2.push(random(80, 100));
-  if (i < 5) {
-    data3.push(65);
-  }
-  data1.push(data2[i] + data3[i]);
+  // data2.push(random(80, 100));
+  // if (i < 5) {
+  //   data3.push(65);
+  // }
+  totalData.push(nonSubsData[i] + subsData[i]);
+  totalPredData.push(nonSubsPredData[i] + subsPredData[i]);
 }
 
 const mainChart = {
-  labels: ['M', 'T', 'W', 'T', 'F', 'S', 'S', 'M', 'T', 'W', 'T', 'F', 'S', 'S', 'M', 'T', 'W', 'T', 'F', 'S', 'S', 'M', 'T', 'W', 'T', 'F', 'S', 'S'],
+  labels: ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23', '24', '25', '26', '27', '28'],
   datasets: [
     {
       label: 'Total LPG',
@@ -374,7 +383,7 @@ const mainChart = {
       borderColor: brandInfo,
       pointHoverBackgroundColor: '#fff',
       borderWidth: 2,
-      data: data1,
+      data: totalData,
     },
     {
       label: 'Non-Subsidised LPG',
@@ -382,8 +391,7 @@ const mainChart = {
       borderColor: brandSuccess,
       pointHoverBackgroundColor: '#fff',
       borderWidth: 1,
-      borderDash: [8, 5],
-      data: data2,
+      data: nonSubsData,
     },
     {
       label: 'Subsidised LPG',
@@ -391,8 +399,34 @@ const mainChart = {
       borderColor: brandDanger,
       pointHoverBackgroundColor: '#fff',
       borderWidth: 1,
+      data: subsData,
+    },
+    {
+      label: 'Total LPG',
+      backgroundColor: convertHex(brandInfo, 10),
+      borderColor: brandInfo,
+      pointHoverBackgroundColor: '#fff',
+      borderWidth: 2,
       borderDash: [8, 5],
-      data: data3,
+      data: totalPredData,
+    },
+    {
+      label: 'Non-Subsidised LPG Prediction',
+      backgroundColor: 'transparent',
+      borderColor: brandSuccess,
+      pointHoverBackgroundColor: '#fff',
+      borderWidth: 1,
+      borderDash: [8, 5],
+      data: nonSubsPredData,
+    },
+    {
+      label: 'Subsidised LPG Prediction',
+      backgroundColor: 'transparent',
+      borderColor: brandDanger,
+      pointHoverBackgroundColor: '#fff',
+      borderWidth: 1,
+      borderDash: [8, 5],
+      data: subsPredData,
     },
   ],
 };
@@ -427,6 +461,31 @@ const mainChartOpts = {
       hoverBorderWidth: 3,
     },
   },
+};
+
+const pie = {
+  labels: [
+    '50kg',
+    '12kg',
+    '5kg',
+    '3kg'
+  ],
+  datasets: [
+    {
+      data: [50, 100, 60, 190],
+      backgroundColor: [
+        '#dc0403',
+        '#36A2EB',
+        '#FF6384',
+        '#d1dc03'
+      ],
+      hoverBackgroundColor: [
+        '#dc0403',
+        '#36A2EB',
+        '#FF6384',
+        '#d1dc03'
+      ],
+    }],
 };
 
 class Dashboard extends Component {
@@ -538,14 +597,31 @@ class Dashboard extends Component {
         </Row>
 
         <Row>
-          <Col>
+          <Col xs="6">
             <Card>
               <CardHeader>
-                Traffic {' & '} Sales
+                Product Sales
+                <div className="card-header-actions">
+                  <a href="http://www.chartjs.org" className="card-header-action">
+                    <small className="text-muted">docs</small>
+                  </a>
+                </div>
+              </CardHeader>
+              <CardBody>
+                <div className="chart-wrapper">
+                  <Pie data={pie} />
+                </div>
+              </CardBody>
+            </Card>
+          </Col>
+          <Col xs="6">
+            <Card>
+              <CardHeader>
+                Regional Sales
               </CardHeader>
               <CardBody>
                 <Row>
-                  <Col xs="12" md="6" xl="6">
+                  <Col xs="12" md="12" xl="12">
                     <div className="progress-group mb-4">
                       <div className="progress-group-prepend">
                         <span className="progress-group-text">
@@ -564,8 +640,8 @@ class Dashboard extends Component {
                         </span>
                       </div>
                       <div className="progress-group-bars">
-                        <Progress className="progress-xs" color="info" value="56" /><h6>34</h6>
-                        <Progress className="progress-xs" color="danger" value="94" /><h6>34</h6>
+                        <Progress className="progress-xs" color="info" value="56" /><h6>56</h6>
+                        <Progress className="progress-xs" color="danger" value="94" /><h6>94</h6>
                       </div>
                     </div>
                     <div className="progress-group mb-4">
@@ -575,8 +651,8 @@ class Dashboard extends Component {
                         </span>
                       </div>
                       <div className="progress-group-bars">
-                        <Progress className="progress-xs" color="info" value="12" /><h6>34</h6>
-                        <Progress className="progress-xs" color="danger" value="67" /><h6>34</h6>
+                        <Progress className="progress-xs" color="info" value="12" /><h6>12</h6>
+                        <Progress className="progress-xs" color="danger" value="67" /><h6>67</h6>
                       </div>
                     </div>
                     <div className="progress-group mb-4">
@@ -586,8 +662,8 @@ class Dashboard extends Component {
                         </span>
                       </div>
                       <div className="progress-group-bars">
-                        <Progress className="progress-xs" color="info" value="43" /><h6>34</h6>
-                        <Progress className="progress-xs" color="danger" value="91" /><h6>34</h6>
+                        <Progress className="progress-xs" color="info" value="43" /><h6>43</h6>
+                        <Progress className="progress-xs" color="danger" value="91" /><h6>91</h6>
                       </div>
                     </div>
                     <div className="progress-group mb-4">
@@ -597,8 +673,8 @@ class Dashboard extends Component {
                         </span>
                       </div>
                       <div className="progress-group-bars">
-                        <Progress className="progress-xs" color="info" value="22" /><h6>34</h6>
-                        <Progress className="progress-xs" color="danger" value="73" /><h6>34</h6>
+                        <Progress className="progress-xs" color="info" value="22" /><h6>22</h6>
+                        <Progress className="progress-xs" color="danger" value="73" /><h6>73</h6>
                       </div>
                     </div>
                     <div className="progress-group mb-4">
@@ -608,8 +684,8 @@ class Dashboard extends Component {
                         </span>
                       </div>
                       <div className="progress-group-bars">
-                        <Progress className="progress-xs" color="info" value="53" /><h6>34</h6>
-                        <Progress className="progress-xs" color="danger" value="82" /><h6>34</h6>
+                        <Progress className="progress-xs" color="info" value="53" /><h6>53</h6>
+                        <Progress className="progress-xs" color="danger" value="82" /><h6>82</h6>
                       </div>
                     </div>
                     <div className="progress-group mb-4">
@@ -619,8 +695,8 @@ class Dashboard extends Component {
                         </span>
                       </div>
                       <div className="progress-group-bars">
-                        <Progress className="progress-xs" color="info" value="9" /><h6>34</h6>
-                        <Progress className="progress-xs" color="danger" value="69" /><h6>34</h6>
+                        <Progress className="progress-xs" color="info" value="9" /><h6>9</h6>
+                        <Progress className="progress-xs" color="danger" value="69" /><h6>69</h6>
                       </div>
                     </div>
                     <div className="legend text-center">
@@ -632,74 +708,6 @@ class Dashboard extends Component {
                         Non Subsidised LPG
                       </small>
                     </div>
-                  </Col>
-                  <Col xs="12" md="6" xl="6">
-                    <ul>
-                      <div className="progress-group">
-                        <div className="progress-group-header">
-                          <i className="icon-user progress-group-icon"></i>
-                          <span className="title">Male</span>
-                          <span className="ml-auto font-weight-bold">43%</span>
-                        </div>
-                        <div className="progress-group-bars">
-                          <Progress className="progress-xs" color="warning" value="43" />
-                        </div>
-                      </div>
-                      <div className="progress-group mb-5">
-                        <div className="progress-group-header">
-                          <i className="icon-user-female progress-group-icon"></i>
-                          <span className="title">Female</span>
-                          <span className="ml-auto font-weight-bold">37%</span>
-                        </div>
-                        <div className="progress-group-bars">
-                          <Progress className="progress-xs" color="warning" value="37" />
-                        </div>
-                      </div>
-                      <div className="progress-group">
-                        <div className="progress-group-header">
-                          <i className="icon-globe progress-group-icon"></i>
-                          <span className="title">Organic Search</span>
-                          <span className="ml-auto font-weight-bold">191,235 <span className="text-muted small">(56%)</span></span>
-                        </div>
-                        <div className="progress-group-bars">
-                          <Progress className="progress-xs" color="success" value="56" />
-                        </div>
-                      </div>
-                      <div className="progress-group">
-                        <div className="progress-group-header">
-                          <i className="icon-social-facebook progress-group-icon"></i>
-                          <span className="title">Facebook</span>
-                          <span className="ml-auto font-weight-bold">51,223 <span className="text-muted small">(15%)</span></span>
-                        </div>
-                        <div className="progress-group-bars">
-                          <Progress className="progress-xs" color="success" value="15" />
-                        </div>
-                      </div>
-                      <div className="progress-group">
-                        <div className="progress-group-header">
-                          <i className="icon-social-twitter progress-group-icon"></i>
-                          <span className="title">Twitter</span>
-                          <span className="ml-auto font-weight-bold">37,564 <span className="text-muted small">(11%)</span></span>
-                        </div>
-                        <div className="progress-group-bars">
-                          <Progress className="progress-xs" color="success" value="11" />
-                        </div>
-                      </div>
-                      <div className="progress-group">
-                        <div className="progress-group-header">
-                          <i className="icon-social-linkedin progress-group-icon"></i>
-                          <span className="title">LinkedIn</span>
-                          <span className="ml-auto font-weight-bold">27,319 <span className="text-muted small">(8%)</span></span>
-                        </div>
-                        <div className="progress-group-bars">
-                          <Progress className="progress-xs" color="success" value="8" />
-                        </div>
-                      </div>
-                      <div className="divider text-center">
-                        <Button color="link" size="sm" className="text-muted" data-toggle="tooltip" data-placement="top"
-                                title="" data-original-title="show more"><i className="icon-options"></i></Button>
-                      </div>
-                    </ul>
                   </Col>
                 </Row>
                 <br />
