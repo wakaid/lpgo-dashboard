@@ -1,27 +1,29 @@
 export default {
   items: [
     {
-      name: 'Dashboard',
-      url: '/dashboard',
-      icon: 'icon-speedometer',
-      badge: {
-        variant: 'info',
-        text: 'NEW',
-      },
-    },
-    {
       title: true,
-      name: 'Theme',
+      name: 'LPG Dashboard',
       wrapper: {            // optional wrapper object
         element: '',        // required valid HTML5 element tag
         attributes: {}        // optional valid JS object with JS API naming ex: { className: "my-class", style: { fontFamily: "Verdana" }, id: "my-id"}
       },
-      class: ''             // optional class names space delimited list for title item ex: "text-center"
+      class: 'text-center'             // optional class names space delimited list for title item ex: "text-center"
     },
     {
-      name: 'Colors',
-      url: '/theme/colors',
-      icon: 'icon-drop',
+      name: 'LPG Order Managements',
+      icon: 'icon-layers',
+      children: [
+        {
+          name: 'Incoming Orders',
+          url: '/incoming-orders',
+          icon: 'icon-list',
+        },
+        {
+          name: 'Need Completion Orders',
+          url: '/need-completion-orders',
+          icon: 'icon-list',
+        }
+      ]
     },
     {
       name: 'Typography',

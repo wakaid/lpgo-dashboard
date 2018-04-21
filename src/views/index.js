@@ -26,6 +26,7 @@ import { Alerts, Badges, Modals } from './Notifications';
 import { Login, Page404, Page500, Register } from './Pages';
 import { Colors, Typography } from './Theme';
 import Widgets from './Widgets';
+import { IncomingOrders, NeedCompletionOrders } from './LpgOrderManagements';
 
 export {
   Badges,
@@ -64,5 +65,7 @@ export {
   Cards,
   Breadcrumbs,
   Paginations,
+  IncomingOrders,
+  NeedCompletionOrders
 };
 
