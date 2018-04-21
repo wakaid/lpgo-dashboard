@@ -19,9 +19,21 @@ export default {
       class: ''             // optional class names space delimited list for title item ex: "text-center"
     },
     {
-      name: 'Colors',
-      url: '/theme/colors',
-      icon: 'icon-drop',
+      name: 'Orders',
+      icon: 'icon-layers',
+      children: [
+        {
+          name: 'Incoming',
+          url: '/incoming-orders',
+          icon: 'icon-list',
+        },
+        {
+          name: 'Need Completion',
+          url: '/need-completion-orders',
+          icon: 'icon-list',
+        }
+      ]
+
     },
     {
       name: 'Typography',

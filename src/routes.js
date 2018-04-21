@@ -31,12 +31,16 @@ import {
   Tooltips,
   Typography,
   Widgets,
+  IncomingOrders,
+  NeedCompletionOrders
 } from './views';
 import Full from './containers/Full';
 
 // https://github.com/ReactTraining/react-router/tree/master/packages/react-router-config
 const routes = [
   { path: '/', exact: true, name: 'Home', component: Full },
+  { path: '/incoming-orders', name: 'Incoming Orders', component: IncomingOrders },
+  { path: '/need-completion-orders', name: 'Need Completion Orders', component: NeedCompletionOrders },
   { path: '/dashboard', name: 'Dashboard', component: Dashboard },
   { path: '/theme', exact: true, name: 'Theme', component: Colors },
   { path: '/theme/colors', name: 'Colors', component: Colors },
