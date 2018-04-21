@@ -1,25 +1,25 @@
 export default {
   items: [
     {
-      title: true,
-      name: 'LPG Dashboard',
-      wrapper: {            // optional wrapper object
-        element: '',        // required valid HTML5 element tag
-        attributes: {}        // optional valid JS object with JS API naming ex: { className: "my-class", style: { fontFamily: "Verdana" }, id: "my-id"}
+      name: 'Dashboard',
+      url: '/dashboard',
+      icon: 'icon-speedometer',
+      badge: {
+        variant: 'info',
+        text: 'NEW',
       },
-      class: 'text-center'             // optional class names space delimited list for title item ex: "text-center"
     },
     {
-      name: 'LPG Order Managements',
+      name: 'Orders',
       icon: 'icon-layers',
       children: [
         {
-          name: 'Incoming Orders',
+          name: 'Incoming',
           url: '/incoming-orders',
           icon: 'icon-list',
         },
         {
-          name: 'Need Completion Orders',
+          name: 'Need Completion',
           url: '/need-completion-orders',
           icon: 'icon-list',
         }
