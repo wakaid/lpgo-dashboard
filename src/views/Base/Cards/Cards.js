@@ -1,403 +1,278 @@
 import React, { Component } from 'react';
-import { Badge, Card, CardBody, CardFooter, CardHeader, Col, Input, Label, Row, Collapse, Fade } from 'reactstrap';
+import { Breadcrumb, BreadcrumbItem, Card, CardBody, CardHeader, Col, Row } from 'reactstrap';
+import { Bar, Line, Doughnut } from 'react-chartjs-2';
+
+import {
+  Badge,
+  Button,
+  ButtonDropdown,
+  ButtonGroup,
+  ButtonToolbar,
+  CardFooter,
+  CardTitle,
+  Dropdown,
+  DropdownItem,
+  DropdownMenu,
+  DropdownToggle,
+  Progress,
+  Table
+} from 'reactstrap';
+
+const brandPrimary = '#20a8d8';
+const brandSuccess = '#4dbd74';
+const brandInfo = '#63c2de';
+const brandWarning = '#f8cb00';
+const brandDanger = '#f86c6b';
+
+// Main Chart
+
+// convert Hex to RGBA
+function convertHex(hex, opacity) {
+  hex = hex.replace('#', '');
+  const r = parseInt(hex.substring(0, 2), 16);
+  var g = parseInt(hex.substring(2, 4), 16);
+  var b = parseInt(hex.substring(4, 6), 16);
+
+  var result = 'rgba(' + r + ',' + g + ',' + b + ',' + opacity / 100 + ')';
+  return result;
+}
+
+//Random Numbers
+function random(min, max) {
+  return Math.floor(Math.random() * (max - min + 1) + min);
+}
+
+var elements = 27;
+var data1 = [];
+var data2 = [];
+var data3 = [];
+
+for (var i = 0; i <= elements; i++) {
+  data2.push(random(80, 100));
+  if (i < 5) {
+    data3.push(65);
+  }
+  data1.push(data2[i] + data3[i]);
+}
+
+const mainChart = {
+  labels: ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23', '24', '25', '26', '27', '28'],
+  datasets: [
+    {
+      label: 'Total LPG',
+      backgroundColor: convertHex(brandInfo, 10),
+      borderColor: brandInfo,
+      pointHoverBackgroundColor: '#fff',
+      borderWidth: 2,
+      data: data1,
+    },
+    {
+      label: 'Non-Subsidised LPG',
+      backgroundColor: 'transparent',
+      borderColor: brandSuccess,
+      pointHoverBackgroundColor: '#fff',
+      borderWidth: 1,
+      borderDash: [8, 5],
+      data: data2,
+    },
+    {
+      label: 'Subsidised LPG',
+      backgroundColor: 'transparent',
+      borderColor: brandDanger,
+      pointHoverBackgroundColor: '#fff',
+      borderWidth: 1,
+      borderDash: [8, 5],
+      data: data3,
+    },
+  ],
+};
+
+const mainChartOpts = {
+  maintainAspectRatio: false,
+  legend: {
+    display: false,
+  },
+  scales: {
+    xAxes: [
+      {
+        gridLines: {
+          drawOnChartArea: false,
+        },
+      }],
+    yAxes: [
+      {
+        ticks: {
+          beginAtZero: true,
+          maxTicksLimit: 5,
+          stepSize: Math.ceil(250 / 5),
+          max: 250,
+        },
+      }],
+  },
+  elements: {
+    point: {
+      radius: 0,
+      hitRadius: 10,
+      hoverRadius: 4,
+      hoverBorderWidth: 3,
+    },
+  },
+};
+
+const doughnut = {
+  labels: [
+    '50kg',
+    '12kg',
+    '5kg',
+    '3kg'
+  ],
+  datasets: [
+    {
+      data: [50, 100, 60, 190],
+      backgroundColor: [
+        '#dc0403',
+        '#36A2EB',
+        '#FF6384',
+        '#d1dc03'
+      ],
+      hoverBackgroundColor: [
+        '#dc0403',
+        '#36A2EB',
+        '#FF6384',
+        '#d1dc03'
+      ],
+    }],
+};
 
 class Cards extends Component {
-  constructor(props) {
-    super(props);
-
-    this.toggle = this.toggle.bind(this);
-    this.toggleFade = this.toggleFade.bind(this);
-    this.state = {
-      collapse: true,
-      fadeIn: true,
-      timeout: 300
-    };
-  }
-
-  toggle() {
-    this.setState({ collapse: !this.state.collapse });
-  }
-
-  toggleFade() {
-    this.setState({ fadeIn: !this.state.fadeIn });
-  }
-
   render() {
     return (
       <div className="animated fadeIn">
         <Row>
-          <Col xs="12" sm="6" md="4">
-            <Card>
-              <CardHeader>
-                Card title
-              </CardHeader>
-              <CardBody>
-                Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut
-                laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation
-                ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.
-              </CardBody>
-            </Card>
-          </Col>
-          <Col xs="12" sm="6" md="4">
+          <Col>
             <Card>
               <CardBody>
-                Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut
-                laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation
-                ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.
-              </CardBody>
-              <CardFooter>Card footer</CardFooter>
-            </Card>
-          </Col>
-          <Col xs="12" sm="6" md="4">
-            <Card>
-              <CardHeader>
-                <i className="fa fa-check float-right"></i>Card with icon
-              </CardHeader>
-              <CardBody>
-                Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut
-                laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation
-                ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.
-              </CardBody>
-            </Card>
-          </Col>
-          <Col xs="12" sm="6" md="4">
-            <Card>
-              <CardHeader>
-                Card with switch
-                <Label className="switch switch-sm switch-text switch-info float-right mb-0">
-                  <Input type="checkbox" className="switch-input" />
-                  <span className="switch-label" data-on="On" data-off="Off"></span>
-                  <span className="switch-handle"></span>
-                </Label>
-              </CardHeader>
-              <CardBody>
-                Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut
-                laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation
-                ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.
-              </CardBody>
-            </Card>
-          </Col>
-          <Col xs="12" sm="6" md="4">
-            <Card>
-              <CardHeader>
-                Card with label
-                <Badge color="success" className="float-right">Success</Badge>
-              </CardHeader>
-              <CardBody>
-                Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut
-                laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation
-                ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.
-              </CardBody>
-            </Card>
-          </Col>
-          <Col xs="12" sm="6" md="4">
-            <Card>
-              <CardHeader>
-                Card with label
-                <Badge pill color="danger" className="float-right">42</Badge>
-              </CardHeader>
-              <CardBody>
-                Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut
-                laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation
-                ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.
-              </CardBody>
-            </Card>
-          </Col>
-        </Row>
-        <Row>
-          <Col xs="12" sm="6" md="4">
-            <Card className="border-primary">
-              <CardHeader>
-                Card outline primary
-              </CardHeader>
-              <CardBody>
-                Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut
-                laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation
-                ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.
-              </CardBody>
-            </Card>
-          </Col>
-          <Col xs="12" sm="6" md="4">
-            <Card className="border-secondary">
-              <CardHeader>
-                Card outline secondary
-              </CardHeader>
-              <CardBody>
-                Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut
-                laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation
-                ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.
-              </CardBody>
-            </Card>
-          </Col>
-          <Col xs="12" sm="6" md="4">
-            <Card className="border-success">
-              <CardHeader>
-                Card outline success
-              </CardHeader>
-              <CardBody>
-                Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut
-                laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation
-                ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.
-              </CardBody>
-            </Card>
-          </Col>
-          <Col xs="12" sm="6" md="4">
-            <Card className="border-info">
-              <CardHeader>
-                Card outline info
-              </CardHeader>
-              <CardBody>
-                Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut
-                laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation
-                ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.
-              </CardBody>
-            </Card>
-          </Col>
-          <Col xs="12" sm="6" md="4">
-            <Card className="border-warning">
-              <CardHeader>
-                Card outline warning
-              </CardHeader>
-              <CardBody>
-                Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut
-                laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation
-                ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.
-              </CardBody>
-            </Card>
-          </Col>
-          <Col xs="12" sm="6" md="4">
-            <Card className="border-danger">
-              <CardHeader>
-                Card outline danger
-              </CardHeader>
-              <CardBody>
-                Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut
-                laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation
-                ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.
+                <Row>
+                  <Col sm="5">
+                    <CardTitle className="mb-0">Purchase Growth</CardTitle>
+                    <div className="small text-muted">April 2018</div>
+                  </Col>
+                  <Col sm="7" className="d-none d-sm-inline-block">
+                    <Button color="primary" className="float-right"><i className="icon-cloud-download"></i></Button>
+                  </Col>
+                </Row>
+                <div className="chart-wrapper" style={{ height: 300 + 'px', marginTop: 40 + 'px' }}>
+                  <Line data={mainChart} options={mainChartOpts} height={300} />
+                </div>
               </CardBody>
             </Card>
           </Col>
         </Row>
 
         <Row>
-          <Col xs="12" sm="6" md="4">
-            <Card className="card-accent-primary">
+          <Col xs="6">
+            <Card>
               <CardHeader>
-                Card with accent
+                Demographic
               </CardHeader>
               <CardBody>
-                Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut
-                laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation
-                ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.
+                <Row>
+                  <Col xs="12" md="12" xl="12">
+                    <ul style={{ paddingLeft: '0px' }}>
+                      <div className="progress-group">
+                        <div className="progress-group-header">
+                          <i className="icon-user progress-group-icon"></i>
+                          <span className="title">Male</span>
+                          <span className="ml-auto font-weight-bold">63%</span>
+                        </div>
+                        <div className="progress-group-bars">
+                          <Progress className="progress-xs" color="warning" value="63" />
+                        </div>
+                      </div>
+                      <div className="progress-group mb-5">
+                        <div className="progress-group-header">
+                          <i className="icon-user-female progress-group-icon"></i>
+                          <span className="title">Female</span>
+                          <span className="ml-auto font-weight-bold">37%</span>
+                        </div>
+                        <div className="progress-group-bars">
+                          <Progress className="progress-xs" color="warning" value="37" />
+                        </div>
+                      </div>
+                      <div className="progress-group">
+                        <div className="progress-group-header">
+                          <i className="icon-rocket progress-group-icon"></i>
+                          <span className="title">Child (0 - 11)</span>
+                          <span className="ml-auto font-weight-bold">191,235 <span className="text-muted small">(56%)</span></span>
+                        </div>
+                        <div className="progress-group-bars">
+                          <Progress className="progress-xs" color="success" value="56" />
+                        </div>
+                      </div>
+                      <div className="progress-group">
+                        <div className="progress-group-header">
+                          <i className="icon-puzzle progress-group-icon"></i>
+                          <span className="title">Teenager (12 - 17)</span>
+                          <span className="ml-auto font-weight-bold">51,223 <span className="text-muted small">(15%)</span></span>
+                        </div>
+                        <div className="progress-group-bars">
+                          <Progress className="progress-xs" color="success" value="15" />
+                        </div>
+                      </div>
+                      <div className="progress-group">
+                        <div className="progress-group-header">
+                          <i className="icon-graduation progress-group-icon"></i>
+                          <span className="title">Young Adult (18 - 30)</span>
+                          <span className="ml-auto font-weight-bold">37,564 <span className="text-muted small">(11%)</span></span>
+                        </div>
+                        <div className="progress-group-bars">
+                          <Progress className="progress-xs" color="success" value="11" />
+                        </div>
+                      </div>
+                      <div className="progress-group">
+                        <div className="progress-group-header">
+                          <i className="icon-mustache progress-group-icon"></i>
+                          <span className="title">Adult (31 - 59)</span>
+                          <span className="ml-auto font-weight-bold">27,319 <span className="text-muted small">(8%)</span></span>
+                        </div>
+                        <div className="progress-group-bars">
+                          <Progress className="progress-xs" color="success" value="8" />
+                        </div>
+                      </div>
+                      <div className="progress-group">
+                        <div className="progress-group-header">
+                          <i className="icon-eyeglass progress-group-icon"></i>
+                          <span className="title">Elder (60+)</span>
+                          <span className="ml-auto font-weight-bold">27,319 <span className="text-muted small">(8%)</span></span>
+                        </div>
+                        <div className="progress-group-bars">
+                          <Progress className="progress-xs" color="success" value="8" />
+                        </div>
+                      </div>
+                    </ul>
+                  </Col>
+                </Row>
+                <br />
               </CardBody>
             </Card>
           </Col>
-          <Col xs="12" sm="6" md="4">
-            <Card className="card-accent-secondary">
+          <Col xs="6">
+            <Card>
               <CardHeader>
-                Card with accent
+                Doughnut Chart
+                <div className="card-header-actions">
+                  <a href="http://www.chartjs.org" className="card-header-action">
+                    <small className="text-muted">docs</small>
+                  </a>
+                </div>
               </CardHeader>
               <CardBody>
-                Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut
-                laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation
-                ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.
+                <div className="chart-wrapper">
+                  <Doughnut data={doughnut} />
+                </div>
               </CardBody>
             </Card>
           </Col>
-          <Col xs="12" sm="6" md="4">
-            <Card className="card-accent-success">
-              <CardHeader>
-                Card with accent
-              </CardHeader>
-              <CardBody>
-                Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut
-                laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation
-                ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.
-              </CardBody>
-            </Card>
-          </Col>
-          <Col xs="12" sm="6" md="4">
-            <Card className="card-accent-info">
-              <CardHeader>
-                Card with accent
-              </CardHeader>
-              <CardBody>
-                Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut
-                laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation
-                ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.
-              </CardBody>
-            </Card>
-          </Col>
-          <Col xs="12" sm="6" md="4">
-            <Card className="card-accent-warning">
-              <CardHeader>
-                Card with accent
-              </CardHeader>
-              <CardBody>
-                Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut
-                laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation
-                ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.
-              </CardBody>
-            </Card>
-          </Col>
-          <Col xs="12" sm="6" md="4">
-            <Card className="card-accent-danger">
-              <CardHeader>
-                Card with accent
-              </CardHeader>
-              <CardBody>
-                Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut
-                laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation
-                ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.
-              </CardBody>
-            </Card>
-          </Col>
-        </Row>
-        <Row>
-          <Col xs="12" sm="6" md="4">
-            <Card className="text-white bg-primary text-center">
-              <CardBody>
-                <blockquote className="card-bodyquote">
-                  <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</p>
-                  <footer>Someone famous in <cite title="Source Title">Source Title</cite></footer>
-                </blockquote>
-              </CardBody>
-            </Card>
-          </Col>
-          <Col xs="12" sm="6" md="4">
-            <Card className="text-white bg-success text-center">
-              <CardBody>
-                <blockquote className="card-bodyquote">
-                  <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</p>
-                  <footer>Someone famous in <cite title="Source Title">Source Title</cite></footer>
-                </blockquote>
-              </CardBody>
-            </Card>
-          </Col>
-          <Col xs="12" sm="6" md="4">
-            <Card className="text-white bg-info text-center">
-              <CardBody>
-                <blockquote className="card-bodyquote">
-                  <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</p>
-                  <footer>Someone famous in <cite title="Source Title">Source Title</cite></footer>
-                </blockquote>
-              </CardBody>
-            </Card>
-          </Col>
-          <Col xs="12" sm="6" md="4">
-            <Card className="text-white bg-warning text-center">
-              <CardBody>
-                <blockquote className="card-bodyquote">
-                  <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</p>
-                  <footer>Someone famous in <cite title="Source Title">Source Title</cite></footer>
-                </blockquote>
-              </CardBody>
-            </Card>
-          </Col>
-          <Col xs="12" sm="6" md="4">
-            <Card className="text-white bg-danger text-center">
-              <CardBody>
-                <blockquote className="card-bodyquote">
-                  <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</p>
-                  <footer>Someone famous in <cite title="Source Title">Source Title</cite></footer>
-                </blockquote>
-              </CardBody>
-            </Card>
-          </Col>
-          <Col xs="12" sm="6" md="4">
-            <Card className="text-white bg-primary text-center">
-              <CardBody>
-                <blockquote className="card-bodyquote">
-                  <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</p>
-                  <footer>Someone famous in <cite title="Source Title">Source Title</cite></footer>
-                </blockquote>
-              </CardBody>
-            </Card>
-          </Col>
-        </Row>
-        <Row>
-          <Col xs="12" sm="6" md="4">
-            <Card className="text-white bg-primary">
-              <CardHeader>
-                Card title
-              </CardHeader>
-              <CardBody>
-                Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut
-                laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation
-                ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.
-              </CardBody>
-            </Card>
-          </Col>
-          <Col xs="12" sm="6" md="4">
-            <Card className="text-white bg-success">
-              <CardHeader>
-                Card title
-              </CardHeader>
-              <CardBody>
-                Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut
-                laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation
-                ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.
-              </CardBody>
-            </Card>
-          </Col>
-          <Col xs="12" sm="6" md="4">
-            <Card className="text-white bg-info">
-              <CardHeader>
-                Card title
-              </CardHeader>
-              <CardBody>
-                Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut
-                laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation
-                ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.
-              </CardBody>
-            </Card>
-          </Col>
-          <Col xs="12" sm="6" md="4">
-            <Card className="text-white bg-warning">
-              <CardHeader>
-                Card title
-              </CardHeader>
-              <CardBody>
-                Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut
-                laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation
-                ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.
-              </CardBody>
-            </Card>
-          </Col>
-          <Col xs="12" sm="6" md="4">
-            <Card className="text-white bg-danger">
-              <CardHeader>
-                Card title
-              </CardHeader>
-              <CardBody>
-                Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut
-                laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation
-                ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.
-              </CardBody>
-            </Card>
-          </Col>
-          <Col xs="12" sm="6" md="4">
-            <Fade timeout={this.state.timeout} in={this.state.fadeIn}>
-              <Card>
-                <CardHeader>
-                  Card actions
-                  <div className="card-header-actions">
-                    <a href="#" className="card-header-action btn btn-setting"><i className="icon-settings"></i></a>
-                    <a className="card-header-action btn btn-minimize" data-target="#collapseExample" onClick={this.toggle}><i className="icon-arrow-up"></i></a>
-                    <a className="card-header-action btn btn-close" onClick={this.toggleFade}><i className="icon-close"></i></a>
-                  </div>
-                </CardHeader>
-                <Collapse isOpen={this.state.collapse} id="collapseExample">
-                  <CardBody>
-                    Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut
-                    laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation
-                    ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.
-                  </CardBody>
-                </Collapse>
-              </Card>
-            </Fade>
-          </Col>
-
         </Row>
       </div>
     );

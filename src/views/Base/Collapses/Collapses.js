@@ -1,224 +1,274 @@
 import React, { Component } from 'react';
-import { Badge, Button, Card, CardBody, CardFooter, CardHeader, Col, Collapse, Fade, Row } from 'reactstrap';
+import { Breadcrumb, BreadcrumbItem, Card, CardBody, CardHeader, Col, Row } from 'reactstrap';
+import { Bar, Line, Doughnut } from 'react-chartjs-2';
+
+import {
+  Badge,
+  Button,
+  ButtonDropdown,
+  ButtonGroup,
+  ButtonToolbar,
+  CardFooter,
+  CardTitle,
+  Dropdown,
+  DropdownItem,
+  DropdownMenu,
+  DropdownToggle,
+  Progress,
+  Table
+} from 'reactstrap';
+
+const brandPrimary = '#20a8d8';
+const brandSuccess = '#4dbd74';
+const brandInfo = '#63c2de';
+const brandWarning = '#f8cb00';
+const brandDanger = '#f86c6b';
+
+// Main Chart
+
+// convert Hex to RGBA
+function convertHex(hex, opacity) {
+  hex = hex.replace('#', '');
+  const r = parseInt(hex.substring(0, 2), 16);
+  var g = parseInt(hex.substring(2, 4), 16);
+  var b = parseInt(hex.substring(4, 6), 16);
+
+  var result = 'rgba(' + r + ',' + g + ',' + b + ',' + opacity / 100 + ')';
+  return result;
+}
+
+//Random Numbers
+function random(min, max) {
+  return Math.floor(Math.random() * (max - min + 1) + min);
+}
+
+var elements = 27;
+var data1 = [];
+var data2 = [];
+var data3 = [];
+
+for (var i = 0; i <= elements; i++) {
+  data2.push(random(80, 100));
+  if (i < 5) {
+    data3.push(65);
+  }
+  data1.push(data2[i] + data3[i]);
+}
+
+const mainChart = {
+  labels: ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23', '24', '25', '26', '27', '28'],
+  datasets: [
+    {
+      label: 'Total LPG',
+      backgroundColor: convertHex(brandInfo, 10),
+      borderColor: brandInfo,
+      pointHoverBackgroundColor: '#fff',
+      borderWidth: 2,
+      data: data1,
+    },
+    {
+      label: 'Non-Subsidised LPG',
+      backgroundColor: 'transparent',
+      borderColor: brandSuccess,
+      pointHoverBackgroundColor: '#fff',
+      borderWidth: 1,
+      borderDash: [8, 5],
+      data: data2,
+    },
+    {
+      label: 'Subsidised LPG',
+      backgroundColor: 'transparent',
+      borderColor: brandDanger,
+      pointHoverBackgroundColor: '#fff',
+      borderWidth: 1,
+      borderDash: [8, 5],
+      data: data3,
+    },
+  ],
+};
+
+const mainChartOpts = {
+  maintainAspectRatio: false,
+  legend: {
+    display: false,
+  },
+  scales: {
+    xAxes: [
+      {
+        gridLines: {
+          drawOnChartArea: false,
+        },
+      }],
+    yAxes: [
+      {
+        ticks: {
+          beginAtZero: true,
+          maxTicksLimit: 5,
+          stepSize: Math.ceil(250 / 5),
+          max: 250,
+        },
+      }],
+  },
+  elements: {
+    point: {
+      radius: 0,
+      hitRadius: 10,
+      hoverRadius: 4,
+      hoverBorderWidth: 3,
+    },
+  },
+};
+
+const doughnut = {
+  labels: [
+    '50kg',
+    '12kg',
+    '5kg',
+    '3kg'
+  ],
+  datasets: [
+    {
+      data: [50, 100, 60, 190],
+      backgroundColor: [
+        '#dc0403',
+        '#36A2EB',
+        '#FF6384',
+        '#d1dc03'
+      ],
+      hoverBackgroundColor: [
+        '#dc0403',
+        '#36A2EB',
+        '#FF6384',
+        '#d1dc03'
+      ],
+    }],
+};
 
 class Collapses extends Component {
-
-  constructor(props) {
-    super(props);
-    this.onEntering = this.onEntering.bind(this);
-    this.onEntered = this.onEntered.bind(this);
-    this.onExiting = this.onExiting.bind(this);
-    this.onExited = this.onExited.bind(this);
-    this.toggle = this.toggle.bind(this);
-    this.toggleAccordion = this.toggleAccordion.bind(this);
-    this.toggleCustom = this.toggleCustom.bind(this);
-    this.toggleFade = this.toggleFade.bind(this);
-    this.state = {
-      collapse: false,
-      accordion: [true, false, false],
-      custom: [true, false],
-      status: 'Closed',
-      fadeIn: true,
-      timeout: 300,
-    };
-  }
-
-  onEntering() {
-    this.setState({ status: 'Opening...' });
-  }
-
-  onEntered() {
-    this.setState({ status: 'Opened' });
-  }
-
-  onExiting() {
-    this.setState({ status: 'Closing...' });
-  }
-
-  onExited() {
-    this.setState({ status: 'Closed' });
-  }
-
-  toggle() {
-    this.setState({ collapse: !this.state.collapse });
-  }
-
-  toggleAccordion(tab) {
-
-    const prevState = this.state.accordion;
-    const state = prevState.map((x, index) => tab === index ? !x : false);
-
-    this.setState({
-      accordion: state,
-    });
-  }
-
-  toggleCustom(tab) {
-
-    const prevState = this.state.custom;
-    const state = prevState.map((x, index) => tab === index ? !x : false);
-
-    this.setState({
-      custom: state,
-    });
-  }
-
-  toggleFade() {
-    this.setState({ fadeIn: !this.state.fadeIn });
-  }
-
   render() {
     return (
       <div className="animated fadeIn">
         <Row>
-          <Col xl="6">
+          <Col>
             <Card>
-              <CardHeader>
-                <i className="fa fa-align-justify"></i><strong>Collapse</strong>
-                <div className="card-header-actions">
-                  <a href="https://reactstrap.github.io/components/collapse/" rel="noreferrer noopener" target="_blank" className="card-header-action">
-                    <small className="text-muted">docs</small>
-                  </a>
-                </div>
-              </CardHeader>
-              <Collapse isOpen={this.state.collapse} onEntering={this.onEntering} onEntered={this.onEntered} onExiting={this.onExiting} onExited={this.onExited}>
-                <CardBody>
-                  <p>
-                    Anim pariatur cliche reprehenderit,
-                    enim eiusmod high life accusamus terry richardson ad squid. Nihil
-                    anim keffiyeh helvetica, craft beer labore wes anderson cred
-                    nesciunt sapiente ea proident.
-                  </p>
-                  <p>
-                    Donec molestie odio id nisi malesuada, mattis tincidunt velit egestas. Sed non pulvinar risus. Aenean
-                    elementum eleifend nunc, pellentesque dapibus arcu hendrerit fringilla. Aliquam in nibh massa. Cras
-                    ultricies lorem non enim volutpat, a eleifend urna placerat. Fusce id luctus urna. In sed leo tellus.
-                    Mauris tristique leo a nisl feugiat, eget vehicula leo venenatis. Quisque magna metus, luctus quis
-                    sollicitudin vel, vehicula nec ipsum. Donec rutrum commodo lacus ut condimentum. Integer vel turpis
-                    purus. Etiam vehicula, nulla non fringilla blandit, massa purus faucibus tellus, a luctus enim orci non
-                    augue. Aenean ullamcorper nisl urna, non feugiat tortor volutpat in. Vivamus lobortis massa dolor, eget
-                    faucibus ipsum varius eget. Pellentesque imperdiet, turpis sed sagittis lobortis, leo elit laoreet arcu,
-                    vehicula sagittis elit leo id nisi.
-                  </p>
-                </CardBody>
-              </Collapse>
-              <CardFooter>
-                <Button color="primary" onClick={this.toggle} style={{ marginBottom: '1rem' }}>Toggle</Button>
-                <h5>Current state: {this.state.status}</h5>
-              </CardFooter>
-            </Card>
-            <Card>
-              <CardHeader>
-                <i className="fa fa-align-justify"></i><strong>Fade</strong>
-                <div className="card-header-actions">
-                  <a href="https://reactstrap.github.io/components/fade/" rel="noreferrer noopener" target="_blank" className="card-header-action">
-                    <small className="text-muted">docs</small>
-                  </a>
-                </div>
-              </CardHeader>
               <CardBody>
-                <Fade timeout={this.state.timeout} in={this.state.fadeIn} tag="h5" className="mt-3">
-                  This content will fade in and out as the button is pressed...
-                </Fade>
+                <Row>
+                  <Col sm="5">
+                    <CardTitle className="mb-0">Purchase Growth</CardTitle>
+                    <div className="small text-muted">April 2018</div>
+                  </Col>
+                  <Col sm="7" className="d-none d-sm-inline-block">
+                    <Button color="primary" className="float-right"><i className="icon-cloud-download"></i></Button>
+                  </Col>
+                </Row>
+                <div className="chart-wrapper" style={{ height: 300 + 'px', marginTop: 40 + 'px' }}>
+                  <Line data={mainChart} options={mainChartOpts} height={300} />
+                </div>
               </CardBody>
-              <CardFooter>
-                <Button color="primary" onClick={this.toggleFade}>Toggle Fade</Button>
-              </CardFooter>
             </Card>
           </Col>
-          <Col xl="6">
+        </Row>
+
+        <Row>
+          <Col xs="6">
             <Card>
               <CardHeader>
-                <i className="fa fa-align-justify"></i> Collapse <small>accordion</small>
-                <div className="card-header-actions">
-                  <Badge>NEW</Badge>
-                </div>
+                Demographic
               </CardHeader>
               <CardBody>
-                <div id="accordion">
-                  <Card>
-                    <CardHeader id="headingOne">
-                      <Button block color="link" className="text-left m-0 p-0" onClick={() => this.toggleAccordion(0)} aria-expanded={this.state.accordion[0]} aria-controls="collapseOne">
-                        <h5 className="m-0 p-0">Collapsible Group Item #1</h5>
-                      </Button>
-                    </CardHeader>
-                    <Collapse isOpen={this.state.accordion[0]} data-parent="#accordion" id="collapseOne" aria-labelledby="headingOne">
-                      <CardBody>
-                        1. Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non
-                        cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird
-                        on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred
-                        nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft
-                        beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
-                      </CardBody>
-                    </Collapse>
-                  </Card>
-                  <Card>
-                    <CardHeader id="headingTwo">
-                      <Button block color="link" className="text-left m-0 p-0" onClick={() => this.toggleAccordion(1)} aria-expanded={this.state.accordion[1]} aria-controls="collapseTwo">
-                        <h5 className="m-0 p-0">Collapsible Group Item #2</h5>
-                      </Button>
-                    </CardHeader>
-                    <Collapse isOpen={this.state.accordion[1]} data-parent="#accordion" id="collapseTwo">
-                      <CardBody>
-                        2. Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non
-                        cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird
-                        on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred
-                        nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft
-                        beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
-                      </CardBody>
-                    </Collapse>
-                  </Card>
-                  <Card>
-                    <CardHeader id="headingThree">
-                      <Button block color="link" className="text-left m-0 p-0" onClick={() => this.toggleAccordion(2)} aria-expanded={this.state.accordion[2]} aria-controls="collapseThree">
-                        <h5 className="m-0 p-0">Collapsible Group Item #3</h5>
-                      </Button>
-                    </CardHeader>
-                    <Collapse isOpen={this.state.accordion[2]} data-parent="#accordion" id="collapseThree">
-                      <CardBody>
-                        3. Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non
-                        cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird
-                        on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred
-                        nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft
-                        beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
-                      </CardBody>
-                    </Collapse>
-                  </Card>
-                </div>
+                <Row>
+                  <Col xs="12" md="12" xl="12">
+                    <ul style={{ paddingLeft: '0px' }}>
+                      <div className="progress-group">
+                        <div className="progress-group-header">
+                          <i className="icon-user progress-group-icon"></i>
+                          <span className="title">Male</span>
+                          <span className="ml-auto font-weight-bold">63%</span>
+                        </div>
+                        <div className="progress-group-bars">
+                          <Progress className="progress-xs" color="warning" value="63" />
+                        </div>
+                      </div>
+                      <div className="progress-group mb-5">
+                        <div className="progress-group-header">
+                          <i className="icon-user-female progress-group-icon"></i>
+                          <span className="title">Female</span>
+                          <span className="ml-auto font-weight-bold">37%</span>
+                        </div>
+                        <div className="progress-group-bars">
+                          <Progress className="progress-xs" color="warning" value="37" />
+                        </div>
+                      </div>
+                      <div className="progress-group">
+                        <div className="progress-group-header">
+                          <i className="icon-rocket progress-group-icon"></i>
+                          <span className="title">Child (0 - 11)</span>
+                          <span className="ml-auto font-weight-bold">191,235 <span className="text-muted small">(56%)</span></span>
+                        </div>
+                        <div className="progress-group-bars">
+                          <Progress className="progress-xs" color="success" value="56" />
+                        </div>
+                      </div>
+                      <div className="progress-group">
+                        <div className="progress-group-header">
+                          <i className="icon-puzzle progress-group-icon"></i>
+                          <span className="title">Teenager (12 - 17)</span>
+                          <span className="ml-auto font-weight-bold">51,223 <span className="text-muted small">(15%)</span></span>
+                        </div>
+                        <div className="progress-group-bars">
+                          <Progress className="progress-xs" color="success" value="15" />
+                        </div>
+                      </div>
+                      <div className="progress-group">
+                        <div className="progress-group-header">
+                          <i className="icon-graduation progress-group-icon"></i>
+                          <span className="title">Young Adult (18 - 30)</span>
+                          <span className="ml-auto font-weight-bold">37,564 <span className="text-muted small">(11%)</span></span>
+                        </div>
+                        <div className="progress-group-bars">
+                          <Progress className="progress-xs" color="success" value="11" />
+                        </div>
+                      </div>
+                      <div className="progress-group">
+                        <div className="progress-group-header">
+                          <i className="icon-mustache progress-group-icon"></i>
+                          <span className="title">Adult (31 - 59)</span>
+                          <span className="ml-auto font-weight-bold">27,319 <span className="text-muted small">(8%)</span></span>
+                        </div>
+                        <div className="progress-group-bars">
+                          <Progress className="progress-xs" color="success" value="8" />
+                        </div>
+                      </div>
+                      <div className="progress-group">
+                        <div className="progress-group-header">
+                          <i className="icon-eyeglass progress-group-icon"></i>
+                          <span className="title">Elder (60+)</span>
+                          <span className="ml-auto font-weight-bold">27,319 <span className="text-muted small">(8%)</span></span>
+                        </div>
+                        <div className="progress-group-bars">
+                          <Progress className="progress-xs" color="success" value="8" />
+                        </div>
+                      </div>
+                    </ul>
+                  </Col>
+                </Row>
+                <br />
               </CardBody>
             </Card>
+          </Col>
+          <Col xs="6">
             <Card>
               <CardHeader>
-                <i className="fa fa-align-justify"></i> Collapse <small>custom accordion</small>
+                Doughnut Chart
                 <div className="card-header-actions">
-                  <Badge>NEW</Badge>
+                  <a href="http://www.chartjs.org" className="card-header-action">
+                    <small className="text-muted">docs</small>
+                  </a>
                 </div>
               </CardHeader>
               <CardBody>
-                <div id="exampleAccordion" data-children=".item">
-                  <div className="item">
-                    <Button className="m-0 p-0" color="link" onClick={() => this.toggleCustom(0)} aria-expanded={this.state.custom[0]} aria-controls="exampleAccordion1">
-                      Toggle item
-                    </Button>
-                    <Collapse isOpen={this.state.custom[0]} data-parent="#exampleAccordion" id="exampleAccordion1">
-                      <p className="mb-3">
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed pretium lorem non vestibulum scelerisque. Proin a vestibulum sem, eget
-                        tristique massa. Aliquam lacinia rhoncus nibh quis ornare.
-                      </p>
-                    </Collapse>
-                  </div>
-                  <div className="item">
-                    <Button className="m-0 p-0" color="link" onClick={() => this.toggleCustom(1)} aria-expanded={this.state.custom[1]} aria-controls="exampleAccordion2">
-                      Toggle item 2
-                    </Button>
-                    <Collapse isOpen={this.state.custom[1]} data-parent="#exampleAccordion" id="exampleAccordion2">
-                      <p className="mb-3">
-                        Donec at ipsum dignissim, rutrum turpis scelerisque, tristique lectus. Pellentesque habitant morbi tristique senectus et netus et
-                        malesuada fames ac turpis egestas. Vivamus nec dui turpis. Orci varius natoque penatibus et magnis dis parturient montes,
-                        nascetur ridiculus mus.
-                      </p>
-                    </Collapse>
-                  </div>
+                <div className="chart-wrapper">
+                  <Doughnut data={doughnut} />
                 </div>
               </CardBody>
             </Card>
