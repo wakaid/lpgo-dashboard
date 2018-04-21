@@ -37,5 +37,7 @@ AnalyticsDAO.prototype.getPurchasesData = function (startDate, endDate, callback
         if (!analyticsData) {
             return callback(null, []);
         }
+
+        callback(null, analyticsData.toJSON);
     });
 };
