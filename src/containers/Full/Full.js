@@ -38,7 +38,8 @@ class Full extends Component {
             <AppSidebarMinimizer />
           </AppSidebar>
           <main className="main">
-            <AppBreadcrumb appRoutes={routes}/>
+            <div style={{ marginBottom: '1.5rem' }}>
+            </div>
             <Container fluid>
               <Switch>
                 {routes.map((route, idx) => {

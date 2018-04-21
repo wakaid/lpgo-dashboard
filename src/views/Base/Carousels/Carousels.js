@@ -1,117 +1,275 @@
 import React, { Component } from 'react';
-import { Card, CardBody, CardHeader, Carousel, CarouselCaption, CarouselControl, CarouselIndicators, CarouselItem, Col, Row } from 'reactstrap';
+import { Breadcrumb, BreadcrumbItem, Card, CardBody, CardHeader, Col, Row } from 'reactstrap';
+import { Bar, Line, Doughnut } from 'react-chartjs-2';
 
-const items = [
-  {
-    src: 'data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%22800%22%20height%3D%22400%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20800%20400%22%20preserveAspectRatio%3D%22none%22%3E%3Cdefs%3E%3Cstyle%20type%3D%22text%2Fcss%22%3E%23holder_1607923e7e2%20text%20%7B%20fill%3A%23555%3Bfont-weight%3Anormal%3Bfont-family%3AHelvetica%2C%20monospace%3Bfont-size%3A40pt%20%7D%20%3C%2Fstyle%3E%3C%2Fdefs%3E%3Cg%20id%3D%22holder_1607923e7e2%22%3E%3Crect%20width%3D%22800%22%20height%3D%22400%22%20fill%3D%22%23777%22%3E%3C%2Frect%3E%3Cg%3E%3Ctext%20x%3D%22285.9296875%22%20y%3D%22217.75625%22%3EFirst%20slide%3C%2Ftext%3E%3C%2Fg%3E%3C%2Fg%3E%3C%2Fsvg%3E',
-    altText: 'Slide 1',
-    caption: 'Slide 1',
+import {
+  Badge,
+  Button,
+  ButtonDropdown,
+  ButtonGroup,
+  ButtonToolbar,
+  CardFooter,
+  CardTitle,
+  Dropdown,
+  DropdownItem,
+  DropdownMenu,
+  DropdownToggle,
+  Progress,
+  Table
+} from 'reactstrap';
+
+const brandPrimary = '#20a8d8';
+const brandSuccess = '#4dbd74';
+const brandInfo = '#63c2de';
+const brandWarning = '#f8cb00';
+const brandDanger = '#f86c6b';
+
+// Main Chart
+
+// convert Hex to RGBA
+function convertHex(hex, opacity) {
+  hex = hex.replace('#', '');
+  const r = parseInt(hex.substring(0, 2), 16);
+  var g = parseInt(hex.substring(2, 4), 16);
+  var b = parseInt(hex.substring(4, 6), 16);
+
+  var result = 'rgba(' + r + ',' + g + ',' + b + ',' + opacity / 100 + ')';
+  return result;
+}
+
+//Random Numbers
+function random(min, max) {
+  return Math.floor(Math.random() * (max - min + 1) + min);
+}
+
+var elements = 27;
+var data1 = [];
+var data2 = [];
+var data3 = [];
+
+for (var i = 0; i <= elements; i++) {
+  data2.push(random(80, 100));
+  if (i < 5) {
+    data3.push(65);
+  }
+  data1.push(data2[i] + data3[i]);
+}
+
+const mainChart = {
+  labels: ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23', '24', '25', '26', '27', '28'],
+  datasets: [
+    {
+      label: 'Total LPG',
+      backgroundColor: convertHex(brandInfo, 10),
+      borderColor: brandInfo,
+      pointHoverBackgroundColor: '#fff',
+      borderWidth: 2,
+      data: data1,
+    },
+    {
+      label: 'Non-Subsidised LPG',
+      backgroundColor: 'transparent',
+      borderColor: brandSuccess,
+      pointHoverBackgroundColor: '#fff',
+      borderWidth: 1,
+      borderDash: [8, 5],
+      data: data2,
+    },
+    {
+      label: 'Subsidised LPG',
+      backgroundColor: 'transparent',
+      borderColor: brandDanger,
+      pointHoverBackgroundColor: '#fff',
+      borderWidth: 1,
+      borderDash: [8, 5],
+      data: data3,
+    },
+  ],
+};
+
+const mainChartOpts = {
+  maintainAspectRatio: false,
+  legend: {
+    display: false,
   },
-  {
-    src: 'data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%22800%22%20height%3D%22400%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20800%20400%22%20preserveAspectRatio%3D%22none%22%3E%3Cdefs%3E%3Cstyle%20type%3D%22text%2Fcss%22%3E%23holder_15ba800aa20%20text%20%7B%20fill%3A%23444%3Bfont-weight%3Anormal%3Bfont-family%3AHelvetica%2C%20monospace%3Bfont-size%3A40pt%20%7D%20%3C%2Fstyle%3E%3C%2Fdefs%3E%3Cg%20id%3D%22holder_15ba800aa20%22%3E%3Crect%20width%3D%22800%22%20height%3D%22400%22%20fill%3D%22%23666%22%3E%3C%2Frect%3E%3Cg%3E%3Ctext%20x%3D%22247.3203125%22%20y%3D%22218.3%22%3ESecond%20slide%3C%2Ftext%3E%3C%2Fg%3E%3C%2Fg%3E%3C%2Fsvg%3E',
-    altText: 'Slide 2',
-    caption: 'Slide 2',
+  scales: {
+    xAxes: [
+      {
+        gridLines: {
+          drawOnChartArea: false,
+        },
+      }],
+    yAxes: [
+      {
+        ticks: {
+          beginAtZero: true,
+          maxTicksLimit: 5,
+          stepSize: Math.ceil(250 / 5),
+          max: 250,
+        },
+      }],
   },
-  {
-    src: 'data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%22800%22%20height%3D%22400%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20800%20400%22%20preserveAspectRatio%3D%22none%22%3E%3Cdefs%3E%3Cstyle%20type%3D%22text%2Fcss%22%3E%23holder_15ba800aa21%20text%20%7B%20fill%3A%23333%3Bfont-weight%3Anormal%3Bfont-family%3AHelvetica%2C%20monospace%3Bfont-size%3A40pt%20%7D%20%3C%2Fstyle%3E%3C%2Fdefs%3E%3Cg%20id%3D%22holder_15ba800aa21%22%3E%3Crect%20width%3D%22800%22%20height%3D%22400%22%20fill%3D%22%23555%22%3E%3C%2Frect%3E%3Cg%3E%3Ctext%20x%3D%22277%22%20y%3D%22218.3%22%3EThird%20slide%3C%2Ftext%3E%3C%2Fg%3E%3C%2Fg%3E%3C%2Fsvg%3E',
-    altText: 'Slide 3',
-    caption: 'Slide 3',
+  elements: {
+    point: {
+      radius: 0,
+      hitRadius: 10,
+      hoverRadius: 4,
+      hoverBorderWidth: 3,
+    },
   },
-];
+};
+
+const doughnut = {
+  labels: [
+    '50kg',
+    '12kg',
+    '5kg',
+    '3kg'
+  ],
+  datasets: [
+    {
+      data: [50, 100, 60, 190],
+      backgroundColor: [
+        '#dc0403',
+        '#36A2EB',
+        '#FF6384',
+        '#d1dc03'
+      ],
+      hoverBackgroundColor: [
+        '#dc0403',
+        '#36A2EB',
+        '#FF6384',
+        '#d1dc03'
+      ],
+    }],
+};
 
 class Carousels extends Component {
-
-  constructor(props) {
-    super(props);
-    this.state = { activeIndex: 0 };
-    this.next = this.next.bind(this);
-    this.previous = this.previous.bind(this);
-    this.goToIndex = this.goToIndex.bind(this);
-    this.onExiting = this.onExiting.bind(this);
-    this.onExited = this.onExited.bind(this);
-  }
-
-  onExiting() {
-    this.animating = true;
-  }
-
-  onExited() {
-    this.animating = false;
-  }
-
-  next() {
-    if (this.animating) return;
-    const nextIndex = this.state.activeIndex === items.length - 1 ? 0 : this.state.activeIndex + 1;
-    this.setState({ activeIndex: nextIndex });
-  }
-
-  previous() {
-    if (this.animating) return;
-    const nextIndex = this.state.activeIndex === 0 ? items.length - 1 : this.state.activeIndex - 1;
-    this.setState({ activeIndex: nextIndex });
-  }
-
-  goToIndex(newIndex) {
-    if (this.animating) return;
-    this.setState({ activeIndex: newIndex });
-  }
-
   render() {
-    const { activeIndex } = this.state;
-
-    const slides = items.map((item) => {
-      return (
-        <CarouselItem onExiting={this.onExiting} onExited={this.onExited} key={item.src}>
-          <img className="d-block w-100" src={item.src} alt={item.altText} />
-        </CarouselItem>
-      );
-    });
-
-    const slides2 = items.map((item) => {
-      return (
-        <CarouselItem
-          onExiting={this.onExiting}
-          onExited={this.onExited}
-          key={item.src}
-        >
-          <img className="d-block w-100" src={item.src} alt={item.altText} />
-          <CarouselCaption captionText={item.caption} captionHeader={item.caption} />
-        </CarouselItem>
-      );
-    });
-
     return (
       <div className="animated fadeIn">
         <Row>
-          <Col xs="12" xl="6">
+          <Col>
+            <Card>
+              <CardBody>
+                <Row>
+                  <Col sm="5">
+                    <CardTitle className="mb-0">Purchase Growth</CardTitle>
+                    <div className="small text-muted">April 2018</div>
+                  </Col>
+                  <Col sm="7" className="d-none d-sm-inline-block">
+                    <Button color="primary" className="float-right"><i className="icon-cloud-download"></i></Button>
+                  </Col>
+                </Row>
+                <div className="chart-wrapper" style={{ height: 300 + 'px', marginTop: 40 + 'px' }}>
+                  <Line data={mainChart} options={mainChartOpts} height={300} />
+                </div>
+              </CardBody>
+            </Card>
+          </Col>
+        </Row>
+
+        <Row>
+          <Col xs="6">
             <Card>
               <CardHeader>
-                <i className="fa fa-align-justify"></i><strong>Carousel</strong>
+                Demographic
+              </CardHeader>
+              <CardBody>
+                <Row>
+                  <Col xs="12" md="12" xl="12">
+                    <ul style={{ paddingLeft: '0px' }}>
+                      <div className="progress-group">
+                        <div className="progress-group-header">
+                          <i className="icon-user progress-group-icon"></i>
+                          <span className="title">Male</span>
+                          <span className="ml-auto font-weight-bold">63%</span>
+                        </div>
+                        <div className="progress-group-bars">
+                          <Progress className="progress-xs" color="warning" value="63" />
+                        </div>
+                      </div>
+                      <div className="progress-group mb-5">
+                        <div className="progress-group-header">
+                          <i className="icon-user-female progress-group-icon"></i>
+                          <span className="title">Female</span>
+                          <span className="ml-auto font-weight-bold">37%</span>
+                        </div>
+                        <div className="progress-group-bars">
+                          <Progress className="progress-xs" color="warning" value="37" />
+                        </div>
+                      </div>
+                      <div className="progress-group">
+                        <div className="progress-group-header">
+                          <i className="icon-rocket progress-group-icon"></i>
+                          <span className="title">Child (0 - 11)</span>
+                          <span className="ml-auto font-weight-bold">191,235 <span className="text-muted small">(56%)</span></span>
+                        </div>
+                        <div className="progress-group-bars">
+                          <Progress className="progress-xs" color="success" value="56" />
+                        </div>
+                      </div>
+                      <div className="progress-group">
+                        <div className="progress-group-header">
+                          <i className="icon-puzzle progress-group-icon"></i>
+                          <span className="title">Teenager (12 - 17)</span>
+                          <span className="ml-auto font-weight-bold">51,223 <span className="text-muted small">(15%)</span></span>
+                        </div>
+                        <div className="progress-group-bars">
+                          <Progress className="progress-xs" color="success" value="15" />
+                        </div>
+                      </div>
+                      <div className="progress-group">
+                        <div className="progress-group-header">
+                          <i className="icon-graduation progress-group-icon"></i>
+                          <span className="title">Young Adult (18 - 30)</span>
+                          <span className="ml-auto font-weight-bold">37,564 <span className="text-muted small">(11%)</span></span>
+                        </div>
+                        <div className="progress-group-bars">
+                          <Progress className="progress-xs" color="success" value="11" />
+                        </div>
+                      </div>
+                      <div className="progress-group">
+                        <div className="progress-group-header">
+                          <i className="icon-mustache progress-group-icon"></i>
+                          <span className="title">Adult (31 - 59)</span>
+                          <span className="ml-auto font-weight-bold">27,319 <span className="text-muted small">(8%)</span></span>
+                        </div>
+                        <div className="progress-group-bars">
+                          <Progress className="progress-xs" color="success" value="8" />
+                        </div>
+                      </div>
+                      <div className="progress-group">
+                        <div className="progress-group-header">
+                          <i className="icon-eyeglass progress-group-icon"></i>
+                          <span className="title">Elder (60+)</span>
+                          <span className="ml-auto font-weight-bold">27,319 <span className="text-muted small">(8%)</span></span>
+                        </div>
+                        <div className="progress-group-bars">
+                          <Progress className="progress-xs" color="success" value="8" />
+                        </div>
+                      </div>
+                    </ul>
+                  </Col>
+                </Row>
+                <br />
+              </CardBody>
+            </Card>
+          </Col>
+          <Col xs="6">
+            <Card>
+              <CardHeader>
+                Doughnut Chart
                 <div className="card-header-actions">
-                  <a href="https://reactstrap.github.io/components/carousel/" rel="noreferrer noopener" target="_blank" className="card-header-action">
+                  <a href="http://www.chartjs.org" className="card-header-action">
                     <small className="text-muted">docs</small>
                   </a>
                 </div>
               </CardHeader>
               <CardBody>
-                <Carousel activeIndex={activeIndex} next={this.next} previous={this.previous} ride="carousel">
-                  {slides}
-                </Carousel>
-              </CardBody>
-            </Card>
-          </Col>
-          <Col xs="12" xl="6">
-            <Card>
-              <CardHeader>
-                <i className="fa fa-align-justify"></i><strong>Carousel</strong>
-              </CardHeader>
-              <CardBody>
-                <Carousel activeIndex={activeIndex} next={this.next} previous={this.previous}>
-                  <CarouselIndicators items={items} activeIndex={activeIndex} onClickHandler={this.goToIndex} />
-                  {slides2}
-                  <CarouselControl direction="prev" directionText="Previous" onClickHandler={this.previous} />
-                  <CarouselControl direction="next" directionText="Next" onClickHandler={this.next} />
-                </Carousel>
+                <div className="chart-wrapper">
+                  <Doughnut data={doughnut} />
+                </div>
               </CardBody>
             </Card>
           </Col>
