@@ -459,6 +459,14 @@ class Dashboard extends Component {
     return (
       <div className="animated fadeIn">
         <Row>
+          <Col>
+            <Card>
+              <h2 style={{ marginTop: '0.5rem', textAlign: 'center' }}>April 2018</h2>
+            </Card>
+          </Col>
+        </Row>
+
+        <Row>
           <Col xs="12" sm="6" lg="3">
             <Card className="text-white bg-info">
               <CardBody className="pb-0">
@@ -499,7 +507,7 @@ class Dashboard extends Component {
             <Card className="text-white bg-danger">
               <CardBody className="pb-0">
                 <h4 className="mb-0">9.823</h4>
-                <p>Members online</p>
+                <p>Total Agents</p>
               </CardBody>
               <div className="chart-wrapper px-3" style={{ height: '50px' }}>
                 <Bar data={cardChartData4} options={cardChartOpts4} height={70} />
@@ -525,35 +533,6 @@ class Dashboard extends Component {
                   <Line data={mainChart} options={mainChartOpts} height={300} />
                 </div>
               </CardBody>
-              <CardFooter>
-                <Row className="text-center">
-                  <Col sm={12} md className="mb-sm-2 mb-0">
-                    <div className="text-muted">Visits</div>
-                    <strong>29.703 Users (40%)</strong>
-                    <Progress className="progress-xs mt-2" color="success" value="40" />
-                  </Col>
-                  <Col sm={12} md className="mb-sm-2 mb-0 d-md-down-none">
-                    <div className="text-muted">Unique</div>
-                    <strong>24.093 Users (20%)</strong>
-                    <Progress className="progress-xs mt-2" color="info" value="20" />
-                  </Col>
-                  <Col sm={12} md className="mb-sm-2 mb-0">
-                    <div className="text-muted">Pageviews</div>
-                    <strong>78.706 Views (60%)</strong>
-                    <Progress className="progress-xs mt-2" color="warning" value="60" />
-                  </Col>
-                  <Col sm={12} md className="mb-sm-2 mb-0">
-                    <div className="text-muted">New Users</div>
-                    <strong>22.123 Users (80%)</strong>
-                    <Progress className="progress-xs mt-2" color="danger" value="80" />
-                  </Col>
-                  <Col sm={12} md className="mb-sm-2 mb-0 d-md-down-none">
-                    <div className="text-muted">Bounce Rate</div>
-                    <strong>Average Rate (40.15%)</strong>
-                    <Progress className="progress-xs mt-2" color="primary" value="40" />
-                  </Col>
-                </Row>
-              </CardFooter>
             </Card>
           </Col>
         </Row>
@@ -567,140 +546,94 @@ class Dashboard extends Component {
               <CardBody>
                 <Row>
                   <Col xs="12" md="6" xl="6">
-                    <Row>
-                      <Col sm="6">
-                        <div className="callout callout-info">
-                          <small className="text-muted">New Clients</small>
-                          <br />
-                          <strong className="h4">9,123</strong>
-                          <div className="chart-wrapper">
-                            <Line data={makeSparkLineData(0, brandPrimary)} options={sparklineChartOpts} width={100} height={30} />
-                          </div>
-                        </div>
-                      </Col>
-                      <Col sm="6">
-                        <div className="callout callout-danger">
-                          <small className="text-muted">Recurring Clients</small>
-                          <br />
-                          <strong className="h4">22,643</strong>
-                          <div className="chart-wrapper">
-                            <Line data={makeSparkLineData(1, brandDanger)} options={sparklineChartOpts} width={100} height={30} />
-                          </div>
-                        </div>
-                      </Col>
-                    </Row>
-                    <hr className="mt-0" />
                     <div className="progress-group mb-4">
                       <div className="progress-group-prepend">
                         <span className="progress-group-text">
-                          Monday
+                          South Jakarta
                         </span>
                       </div>
                       <div className="progress-group-bars">
-                        <Progress className="progress-xs" color="info" value="34" />
-                        <Progress className="progress-xs" color="danger" value="78" />
+                        <Progress className="progress-xs" color="info" value="34" /><h6>34</h6>
+                        <Progress className="progress-xs" color="danger" value="78" /><h6>78</h6>
                       </div>
                     </div>
                     <div className="progress-group mb-4">
                       <div className="progress-group-prepend">
                         <span className="progress-group-text">
-                        Tuesday
+                        East Jakarta
                         </span>
                       </div>
                       <div className="progress-group-bars">
-                        <Progress className="progress-xs" color="info" value="56" />
-                        <Progress className="progress-xs" color="danger" value="94" />
+                        <Progress className="progress-xs" color="info" value="56" /><h6>34</h6>
+                        <Progress className="progress-xs" color="danger" value="94" /><h6>34</h6>
                       </div>
                     </div>
                     <div className="progress-group mb-4">
                       <div className="progress-group-prepend">
                         <span className="progress-group-text">
-                        Wednesday
+                        Central Jakarta
                         </span>
                       </div>
                       <div className="progress-group-bars">
-                        <Progress className="progress-xs" color="info" value="12" />
-                        <Progress className="progress-xs" color="danger" value="67" />
+                        <Progress className="progress-xs" color="info" value="12" /><h6>34</h6>
+                        <Progress className="progress-xs" color="danger" value="67" /><h6>34</h6>
                       </div>
                     </div>
                     <div className="progress-group mb-4">
                       <div className="progress-group-prepend">
                         <span className="progress-group-text">
-                        Thursday
+                        West Jakarta
                         </span>
                       </div>
                       <div className="progress-group-bars">
-                        <Progress className="progress-xs" color="info" value="43" />
-                        <Progress className="progress-xs" color="danger" value="91" />
+                        <Progress className="progress-xs" color="info" value="43" /><h6>34</h6>
+                        <Progress className="progress-xs" color="danger" value="91" /><h6>34</h6>
                       </div>
                     </div>
                     <div className="progress-group mb-4">
                       <div className="progress-group-prepend">
                         <span className="progress-group-text">
-                        Friday
+                        North Jakarta
                         </span>
                       </div>
                       <div className="progress-group-bars">
-                        <Progress className="progress-xs" color="info" value="22" />
-                        <Progress className="progress-xs" color="danger" value="73" />
+                        <Progress className="progress-xs" color="info" value="22" /><h6>34</h6>
+                        <Progress className="progress-xs" color="danger" value="73" /><h6>34</h6>
                       </div>
                     </div>
                     <div className="progress-group mb-4">
                       <div className="progress-group-prepend">
                         <span className="progress-group-text">
-                        Saturday
+                        Depok
                         </span>
                       </div>
                       <div className="progress-group-bars">
-                        <Progress className="progress-xs" color="info" value="53" />
-                        <Progress className="progress-xs" color="danger" value="82" />
+                        <Progress className="progress-xs" color="info" value="53" /><h6>34</h6>
+                        <Progress className="progress-xs" color="danger" value="82" /><h6>34</h6>
                       </div>
                     </div>
                     <div className="progress-group mb-4">
                       <div className="progress-group-prepend">
                         <span className="progress-group-text">
-                        Sunday
+                        Bekasi
                         </span>
                       </div>
                       <div className="progress-group-bars">
-                        <Progress className="progress-xs" color="info" value="9" />
-                        <Progress className="progress-xs" color="danger" value="69" />
+                        <Progress className="progress-xs" color="info" value="9" /><h6>34</h6>
+                        <Progress className="progress-xs" color="danger" value="69" /><h6>34</h6>
                       </div>
                     </div>
                     <div className="legend text-center">
                       <small>
-                        <sup className="px-1"><Badge pill color="info">&nbsp;</Badge></sup>
-                        New clients
+                        <sup className="px-1"><Badge pill style={{ backgroundColor: '#68e2cd' }}>&nbsp;</Badge></sup>
+                        Subsidised LPG
                         &nbsp;
                         <sup className="px-1"><Badge pill color="danger">&nbsp;</Badge></sup>
-                        Recurring clients
+                        Non Subsidised LPG
                       </small>
                     </div>
                   </Col>
                   <Col xs="12" md="6" xl="6">
-                    <Row>
-                      <Col sm="6">
-                        <div className="callout callout-warning">
-                          <small className="text-muted">Pageviews</small>
-                          <br />
-                          <strong className="h4">78,623</strong>
-                          <div className="chart-wrapper">
-                            <Line data={makeSparkLineData(2, brandWarning)} options={sparklineChartOpts} width={100} height={30} />
-                          </div>
-                        </div>
-                      </Col>
-                      <Col sm="6">
-                        <div className="callout callout-success">
-                          <small className="text-muted">Organic</small>
-                          <br />
-                          <strong className="h4">49,123</strong>
-                          <div className="chart-wrapper">
-                            <Line data={makeSparkLineData(3, brandSuccess)} options={sparklineChartOpts} width={100} height={30} />
-                          </div>
-                        </div>
-                      </Col>
-                    </Row>
-                    <hr className="mt-0" />
                     <ul>
                       <div className="progress-group">
                         <div className="progress-group-header">

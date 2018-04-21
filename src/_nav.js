@@ -30,49 +30,49 @@ export default {
     },
     {
       title: true,
-      name: 'Components',
+      name: 'Analytics',
       wrapper: {
         element: '',
         attributes: {},
       },
     },
     {
-      name: 'Base',
+      name: 'Region',
       url: '/base',
       icon: 'icon-puzzle',
       children: [
         {
-          name: 'Breadcrumbs',
+          name: 'South Jakarta',
           url: '/base/breadcrumbs',
           icon: 'icon-puzzle',
         },
         {
-          name: 'Cards',
+          name: 'East Jakarta',
           url: '/base/cards',
           icon: 'icon-puzzle',
         },
         {
-          name: 'Carousels',
+          name: 'Central Jakarta',
           url: '/base/carousels',
           icon: 'icon-puzzle',
         },
         {
-          name: 'Collapses',
+          name: 'West Jakarta',
           url: '/base/collapses',
           icon: 'icon-puzzle',
         },
         {
-          name: 'Dropdowns',
+          name: 'North Jakarta',
           url: '/base/dropdowns',
           icon: 'icon-puzzle',
         },
         {
-          name: 'Forms',
+          name: 'Depok',
           url: '/base/forms',
           icon: 'icon-puzzle',
         },
         {
-          name: 'Jumbotrons',
+          name: 'Bekasi',
           url: '/base/jumbotrons',
           icon: 'icon-puzzle',
         },
