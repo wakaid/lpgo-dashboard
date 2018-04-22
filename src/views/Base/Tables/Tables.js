@@ -47,7 +47,7 @@ class Tables extends Component {
                     </td>
                   </tr>
                   <tr>
-                    <td>Stephanus Adrian</td>
+                    <td>Stephanus</td>
                     <td>2012/03/01</td>
                     <td>West Jakarta</td>
                     <td>
