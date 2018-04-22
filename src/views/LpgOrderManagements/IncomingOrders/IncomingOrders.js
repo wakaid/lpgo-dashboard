@@ -51,10 +51,10 @@ class IncomingOrders extends Component {
     }
 
     const columns = [{
-      Header: 'LPG id',
+      Header: 'LPG Type',
       accessor: 'lpg_id'
     }, {
-      Header: 'Agent id',
+      Header: 'Agent Name',
       accessor: 'agent_id'
     }, {
       Header: 'Quantity',
@@ -80,6 +80,7 @@ class IncomingOrders extends Component {
               columns = { columns }
               defaultPageSize = { 10 }
               className="-striped -highlight"
+              style={{ textAlign: "center" }}
             />
           </div>
         </div>

@@ -46,13 +46,21 @@ var elements = 27;
 var data1 = [];
 var data2 = [];
 var data3 = [];
+var nonSubsData = [240, 165, 214, 180, 201, 220, 187, 198, 216, 138, 137, 160, 174, 154, 194, 196, 218, 215];
+var subsData = [160, 105, 130, 131, 126, 141, 144, 166, 177, 190, 163, 108, 122, 189, 107, 127, 125, 138];
+var totalData = [];
+var nonSubsPredData = [240, 165, 214, 180, 201, 220, 187, 198, 216, 138, 137, 160, 174, 154, 194, 196, 218, 215, 181, 180, 179, 178, 177, 177, 176];
+var subsPredData = [160, 105, 130, 131, 126, 141, 144, 166, 177, 190, 163, 108, 122, 189, 107, 127, 125, 138, 140, 140, 140, 140, 140, 140, 140];
+var totalPredData = [];
+
 
 for (var i = 0; i <= elements; i++) {
-  data2.push(random(80, 100));
-  if (i < 5) {
-    data3.push(65);
-  }
-  data1.push(data2[i] + data3[i]);
+  // data2.push(random(80, 100));
+  // if (i < 5) {
+  //   data3.push(65);
+  // }
+  totalData.push(nonSubsData[i] + subsData[i]);
+  totalPredData.push(nonSubsPredData[i] + subsPredData[i]);
 }
 
 const mainChart = {
@@ -64,7 +72,7 @@ const mainChart = {
       borderColor: brandInfo,
       pointHoverBackgroundColor: '#fff',
       borderWidth: 2,
-      data: data1,
+      data: totalData,
     },
     {
       label: 'Non-Subsidised LPG',
@@ -72,8 +80,7 @@ const mainChart = {
       borderColor: brandSuccess,
       pointHoverBackgroundColor: '#fff',
       borderWidth: 1,
-      borderDash: [8, 5],
-      data: data2,
+      data: nonSubsData,
     },
     {
       label: 'Subsidised LPG',
@@ -81,8 +88,34 @@ const mainChart = {
       borderColor: brandDanger,
       pointHoverBackgroundColor: '#fff',
       borderWidth: 1,
+      data: subsData,
+    },
+    {
+      label: 'Total LPG',
+      backgroundColor: convertHex(brandInfo, 10),
+      borderColor: brandInfo,
+      pointHoverBackgroundColor: '#fff',
+      borderWidth: 2,
       borderDash: [8, 5],
-      data: data3,
+      data: totalPredData,
+    },
+    {
+      label: 'Non-Subsidised LPG Prediction',
+      backgroundColor: 'transparent',
+      borderColor: brandSuccess,
+      pointHoverBackgroundColor: '#fff',
+      borderWidth: 1,
+      borderDash: [8, 5],
+      data: nonSubsPredData,
+    },
+    {
+      label: 'Subsidised LPG Prediction',
+      backgroundColor: 'transparent',
+      borderColor: brandDanger,
+      pointHoverBackgroundColor: '#fff',
+      borderWidth: 1,
+      borderDash: [8, 5],
+      data: subsPredData,
     },
   ],
 };
@@ -105,7 +138,7 @@ const mainChartOpts = {
           beginAtZero: true,
           maxTicksLimit: 5,
           stepSize: Math.ceil(250 / 5),
-          max: 250,
+          max: 450,
         },
       }],
   },
@@ -128,7 +161,7 @@ const doughnut = {
   ],
   datasets: [
     {
-      data: [50, 100, 60, 190],
+      data: [55, 2077, 2523, 3530],
       backgroundColor: [
         '#dc0403',
         '#36A2EB',
