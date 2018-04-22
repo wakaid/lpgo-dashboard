@@ -357,11 +357,11 @@ var elements = 27;
 var data1 = [];
 var data2 = [];
 var data3 = [];
-var nonSubsData = [30, 50, 20, 25, 15, 18, 33];
-var subsData = [67, 69, 55, 50, 70, 71, 60];
+var nonSubsData = [1046, 1045, 1132, 844, 986, 1122, 1167, 1161, 947, 935, 918, 935, 1108, 932, 1085, 1184, 1060, 1096];
+var subsData = [1307, 1164, 1142, 1053, 1108, 1216, 1140, 1026, 1148, 1135, 1190, 1213, 1135, 1240, 1122, 1154, 1234, 1138];
 var totalData = [];
-var nonSubsPredData = [30, 50, 20, 25, 15, 18, 33, 48, 50, 33, 35, 27, 30, 33];
-var subsPredData = [67, 69, 55, 50, 70, 71, 60, 58, 57, 60, 63, 65, 69, 70];
+var nonSubsPredData = [1046, 1045, 1132, 844, 986, 1122, 1167, 1161, 947, 935, 918, 935, 1108, 932, 1085, 1184, 1060, 1096, 1026, 1025, 1042, 1051, 1059, 1067, 1070];
+var subsPredData = [1307, 1164, 1142, 1053, 1108, 1216, 1140, 1026, 1148, 1135, 1190, 1213, 1135, 1240, 1122, 1154, 1234, 1138, 1139, 1160, 1160, 1147, 1149, 1156, 1156];
 var totalPredData = [];
 
 
@@ -448,8 +448,8 @@ const mainChartOpts = {
         ticks: {
           beginAtZero: true,
           maxTicksLimit: 5,
-          stepSize: Math.ceil(250 / 5),
-          max: 250,
+          stepSize: Math.ceil(2500 / 10),
+          max: 2500,
         },
       }],
   },
@@ -472,7 +472,7 @@ const pie = {
   ],
   datasets: [
     {
-      data: [50, 100, 60, 190],
+      data: [542, 9160, 16341, 28932],
       backgroundColor: [
         '#dc0403',
         '#36A2EB',
@@ -529,7 +529,7 @@ class Dashboard extends Component {
           <Col xs="12" sm="6" lg="3">
             <Card className="text-white bg-info">
               <CardBody className="pb-0">
-                <h4 className="mb-0">9.823</h4>
+                <h4 className="mb-0">2</h4>
                 <p>Requested LPG</p>
               </CardBody>
               <div className="chart-wrapper px-3" style={{ height: '50px' }}>
@@ -553,7 +553,7 @@ class Dashboard extends Component {
           <Col xs="12" sm="6" lg="3">
             <Card className="text-white bg-warning">
               <CardBody className="pb-0">
-                <h4 className="mb-0">9.823</h4>
+                <h4 className="mb-0">5</h4>
                 <p>New Agents</p>
               </CardBody>
               <div className="chart-wrapper px-3" style={{ height: '50px' }}>
@@ -565,7 +565,7 @@ class Dashboard extends Component {
           <Col xs="12" sm="6" lg="3">
             <Card className="text-white bg-danger">
               <CardBody className="pb-0">
-                <h4 className="mb-0">9.823</h4>
+                <h4 className="mb-0">5</h4>
                 <p>Total Agents</p>
               </CardBody>
               <div className="chart-wrapper px-3" style={{ height: '50px' }}>
@@ -629,8 +629,8 @@ class Dashboard extends Component {
                         </span>
                       </div>
                       <div className="progress-group-bars">
-                        <Progress className="progress-xs" color="info" value="34" /><h6>34</h6>
-                        <Progress className="progress-xs" color="danger" value="78" /><h6>78</h6>
+                        <Progress className="progress-xs" color="info" value="44" /><h6>3849</h6>
+                        <Progress className="progress-xs" color="danger" value="56" /><h6>4863</h6>
                       </div>
                     </div>
                     <div className="progress-group mb-4">
@@ -640,8 +640,8 @@ class Dashboard extends Component {
                         </span>
                       </div>
                       <div className="progress-group-bars">
-                        <Progress className="progress-xs" color="info" value="56" /><h6>56</h6>
-                        <Progress className="progress-xs" color="danger" value="94" /><h6>94</h6>
+                        <Progress className="progress-xs" color="info" value="49" /><h6>4099</h6>
+                        <Progress className="progress-xs" color="danger" value="51" /><h6>4192</h6>
                       </div>
                     </div>
                     <div className="progress-group mb-4">
@@ -651,8 +651,8 @@ class Dashboard extends Component {
                         </span>
                       </div>
                       <div className="progress-group-bars">
-                        <Progress className="progress-xs" color="info" value="12" /><h6>12</h6>
-                        <Progress className="progress-xs" color="danger" value="67" /><h6>67</h6>
+                        <Progress className="progress-xs" color="info" value="57" /><h6>4655</h6>
+                        <Progress className="progress-xs" color="danger" value="43" /><h6>3530</h6>
                       </div>
                     </div>
                     <div className="progress-group mb-4">
@@ -662,8 +662,8 @@ class Dashboard extends Component {
                         </span>
                       </div>
                       <div className="progress-group-bars">
-                        <Progress className="progress-xs" color="info" value="43" /><h6>43</h6>
-                        <Progress className="progress-xs" color="danger" value="91" /><h6>91</h6>
+                        <Progress className="progress-xs" color="info" value="41" /><h6>2481</h6>
+                        <Progress className="progress-xs" color="danger" value="59" /><h6>3500</h6>
                       </div>
                     </div>
                     <div className="progress-group mb-4">
@@ -673,8 +673,8 @@ class Dashboard extends Component {
                         </span>
                       </div>
                       <div className="progress-group-bars">
-                        <Progress className="progress-xs" color="info" value="22" /><h6>22</h6>
-                        <Progress className="progress-xs" color="danger" value="73" /><h6>73</h6>
+                        <Progress className="progress-xs" color="info" value="52" /><h6>4499</h6>
+                        <Progress className="progress-xs" color="danger" value="48" /><h6>4155</h6>
                       </div>
                     </div>
                     <div className="progress-group mb-4">
@@ -684,8 +684,8 @@ class Dashboard extends Component {
                         </span>
                       </div>
                       <div className="progress-group-bars">
-                        <Progress className="progress-xs" color="info" value="53" /><h6>53</h6>
-                        <Progress className="progress-xs" color="danger" value="82" /><h6>82</h6>
+                        <Progress className="progress-xs" color="info" value="40" /><h6>3079</h6>
+                        <Progress className="progress-xs" color="danger" value="60" /><h6>4590</h6>
                       </div>
                     </div>
                     <div className="progress-group mb-4">
@@ -695,17 +695,17 @@ class Dashboard extends Component {
                         </span>
                       </div>
                       <div className="progress-group-bars">
-                        <Progress className="progress-xs" color="info" value="9" /><h6>9</h6>
-                        <Progress className="progress-xs" color="danger" value="69" /><h6>69</h6>
+                        <Progress className="progress-xs" color="info" value="45" /><h6>3380</h6>
+                        <Progress className="progress-xs" color="danger" value="55" /><h6>4102</h6>
                       </div>
                     </div>
                     <div className="legend text-center">
                       <small>
                         <sup className="px-1"><Badge pill style={{ backgroundColor: '#68e2cd' }}>&nbsp;</Badge></sup>
-                        Subsidised LPG
+                        Non Subsidised LPG
                         &nbsp;
                         <sup className="px-1"><Badge pill color="danger">&nbsp;</Badge></sup>
-                        Non Subsidised LPG
+                        Subsidised LPG
                       </small>
                     </div>
                   </Col>
