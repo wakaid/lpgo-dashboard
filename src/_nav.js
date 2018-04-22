@@ -6,7 +6,6 @@ export default {
       icon: 'icon-speedometer',
       badge: {
         variant: 'info',
-        text: 'NEW',
       },
     },
     {
@@ -36,9 +35,9 @@ export default {
 
     },
     {
-      name: 'Typography',
-      url: '/theme/typography',
-      icon: 'icon-pencil',
+      name: 'Agents',
+      url: '/base/tables',
+      icon: 'icon-people',
     },
     {
       title: true,

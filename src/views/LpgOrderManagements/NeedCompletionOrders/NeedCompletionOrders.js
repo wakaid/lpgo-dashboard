@@ -50,10 +50,10 @@ class NeedCompletionOrders extends Component {
     }
 
     const columns = [{
-      Header: 'LPG id',
+      Header: 'LPG Type',
       accessor: 'lpg_id'
     }, {
-      Header: 'Agent id',
+      Header: 'Agent Name',
       accessor: 'agent_id'
     }, {
       Header: 'Quantity',
@@ -71,7 +71,7 @@ class NeedCompletionOrders extends Component {
       <div className="animated fadeIn">
         <div className="card">
           <div className="card-header">
-            <i className="icon-list"></i> Incoming Orders
+            <i className="icon-list"></i> Uncompleted Orders
           </div>
           <div className="card-body">
             <ReactTable
@@ -79,6 +79,7 @@ class NeedCompletionOrders extends Component {
               columns = { columns }
               defaultPageSize = { 10 }
               className="-striped -highlight"
+              style={{ textAlign: "center" }}
             />
           </div>
         </div>
