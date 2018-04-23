@@ -529,7 +529,7 @@ class Dashboard extends Component {
           <Col xs="12" sm="6" lg="3">
             <Card className="text-white bg-info">
               <CardBody className="pb-0">
-                <h4 className="mb-0">2</h4>
+                <h4 className="mb-0">5</h4>
                 <p>Requested LPG</p>
               </CardBody>
               <div className="chart-wrapper px-3" style={{ height: '50px' }}>

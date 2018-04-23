@@ -292,7 +292,7 @@ class Jumbotrons extends Component {
           <Col xs="6">
             <Card>
               <CardHeader>
-                Doughnut Chart
+                Product Sales
                 <div className="card-header-actions">
                   <a href="http://www.chartjs.org" className="card-header-action">
                     <small className="text-muted">docs</small>
